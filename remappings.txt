@@ -1,0 +1,4 @@
+murky/=lib/murky/
+@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/
+foundry-devops/=lib/foundry-devops/
+forge-std/=lib/forge-std/src/
