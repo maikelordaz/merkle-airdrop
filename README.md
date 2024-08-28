@@ -27,7 +27,7 @@
 ## Quickstart
 
 ```bash
-git clone 
+git clone https://github.com/maikelordaz/merkle-airdrop
 cd merkle-airdrop
 make all
 ```
