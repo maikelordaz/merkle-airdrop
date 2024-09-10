@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.24;
+pragma solidity 0.8.27;
 
 import {MerkleProof} from "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 import {IERC20, SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
@@ -57,18 +57,19 @@ contract MerkleAirdrop is EIP712 {
         bytes32 r,
         bytes32 s
     ) external {
-        if (hasClaimed[account]) revert MerkleAirdrop__AlreadyClaimed();
+        require(!hasClaimed[account], MerkleAirdrop__AlreadyClaimed());
 
         // Check the signature
-        if (
-            !_isValidSignature(
+        require(
+            _isValidSignature(
                 account,
                 getMessageHash(account, amount),
                 v,
                 r,
                 s
-            )
-        ) revert MerkleAirdrop__InvalidSignature();
+            ),
+            MerkleAirdrop__InvalidSignature()
+        );
 
         // Verify the merkle proof
         // calculate the leaf node hash
@@ -79,8 +80,10 @@ contract MerkleAirdrop is EIP712 {
         bytes32 leaf = keccak256(
             bytes.concat(keccak256(abi.encode(account, amount)))
         );
-        if (!MerkleProof.verify(merkleProof, merkleRoot, leaf))
-            revert MerkleAirdrop__InvalidProof();
+        require(
+            MerkleProof.verify(merkleProof, merkleRoot, leaf),
+            MerkleAirdrop__InvalidProof()
+        );
 
         hasClaimed[account] = true;
         emit Claimed(account, amount);

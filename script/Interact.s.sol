@@ -1,5 +1,5 @@
 // SPDX-Licence-Indentifier: MIT
-pragma solidity ^0.8.24;
+pragma solidity 0.8.27;
 
 import {Script, console} from "forge-std/Script.sol";
 import {DevOpsTools} from "foundry-devops/src/DevOpsTools.sol";
@@ -41,9 +41,10 @@ contract ClaimAirdrop is Script {
     function splitSignature(
         bytes memory sig
     ) public pure returns (uint8 v, bytes32 r, bytes32 s) {
-        if (sig.length != 65) {
-            revert __ClaimAirdropScript__InvalidSignatureLength();
-        }
+        require(
+            sig.length == 65,
+            __ClaimAirdropScript__InvalidSignatureLength()
+        );
         assembly {
             r := mload(add(sig, 32))
             s := mload(add(sig, 64))
