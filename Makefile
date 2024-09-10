@@ -25,7 +25,7 @@ clean  :; forge clean
 # Remove modules
 remove :; rm -rf .gitmodules && rm -rf .git/modules/* && rm -rf lib && touch .gitmodules && git add . && git commit -m "modules"
 
-install :; forge install https://github.com/foundry-rs/forge-std --no-commit && forge install https://github.com/OpenZeppelin/openzeppelin-contracts --no-commit && forge install https://github.com/dmfxyz/murky --no-commit && forge install https://github.com/cyfrin/foundry-devops --no-commit 
+install :; forge install foundry-rs/forge-std@v1.9.2 --no-commit && forge install OpenZeppelin/openzeppelin-contracts@v5.0.2 --no-commit && forge install dmfxyz/murky --no-commit && forge install cyfrin/foundry-devops@v0.2.2 --no-commit 
 
 # Update Dependencies
 update:; forge update
