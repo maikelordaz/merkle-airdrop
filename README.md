@@ -39,7 +39,7 @@ make all
 If working with default addresses skip this section
 
 To ork with different addresses:
-1. Update the whitelist in `GenerateInput.s.sol`. This will To generate the input file and then the merkle root and proofs
+1. Update the whitelist in `GenerateInput.s.sol`. This will generate the input file and then the merkle root and proofs
 2. Run:
 
 ```bash
